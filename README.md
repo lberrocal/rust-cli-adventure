@@ -9,37 +9,44 @@ For development purposes in Windows, your .vscode files should look like this:
 ```json
 {
     "version": "0.2.0",
-    "configurations": [{
-        "name": "(Windows) Launch",
-        "type": "cppvsdbg",
-        "request": "launch",
-        "program": "${workspaceRoot}/target/debug/rust-cli-adventure.exe",
-        "externalConsole": true,
-        "stopAtEntry": false,
-        "cwd": "${workspaceRoot}",
-        "preLaunchTask": "build-cli"
-    }] 
-    
-}
-```
-
-### tasks.json
-```json
-{
-    "version": "2.0.0",
-    "tasks": [
-		{
-			"type": "cargo",
-			"command": "build",
-			"problemMatcher": [
-				"$rustc"
-			],
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			},
-			"label": "build-cli"
-		}
-	]
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'rust-cli-adventure'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=rust-cli-adventure",
+                    "--package=rust-cli-adventure"
+                ],
+                "filter": {
+                    "name": "rust-cli-adventure",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'rust-cli-adventure'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=rust-cli-adventure",
+                    "--package=rust-cli-adventure"
+                ],
+                "filter": {
+                    "name": "rust-cli-adventure",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        }
+    ]
 }
 ```
